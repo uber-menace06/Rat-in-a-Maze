@@ -1,0 +1,27 @@
+class Solution {
+    public static void solvemaze(int[][]m,ArrayList<String>res,boolean[][]vis,int n,int r,int c,String p){
+        if(r==n-1 && c== n-1 && m[r][c]!=0){
+        res.add(p);
+        return;
+        }
+        if(r>=0 && c>=0 && r<n &&c<n){
+            if(vis[r][c]==true|| m[r][c]==0){
+                return;
+            }
+            vis[r][c]=true;
+            solvemaze(m,res,vis,n,r+1,c,p+"D");//Down
+            solvemaze(m,res,vis,n,r-1,c,p+"U");//Up
+            solvemaze(m,res,vis,n,r,c+1,p+"R");//Right
+            solvemaze(m,res,vis,n,r,c-1,p+"L");//Left
+            vis[r][c]=false;
+        }
+    }
+    public static ArrayList<String> findPath(int[][] m, int n) {
+        // Your code here
+        
+        ArrayList<String> res= new ArrayList<>();
+        boolean vis[][]= new boolean[n][n];
+        solvemaze(m,res,vis,n,0,0,"");
+        return res;
+    }
+}
